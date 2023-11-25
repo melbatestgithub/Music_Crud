@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 
 function* getMusic() {
-  let data = yield fetch("http://localhost:3200/musics");
+  let data = yield fetch("https://music-data-stbm.onrender.com/music");
   data = yield data.json();
   yield put({ type: SET_MUSIC_LIST, data });
 }
@@ -20,7 +20,7 @@ function* add_Music(action) {
 
   try {
     const response = yield axios.post(
-      "http://localhost:3200/musics",
+      "https://music-data-stbm.onrender.com/music",
       musicData
     );
     yield put({ type: SET_MUSIC_LIST, payload: response.data });
@@ -32,7 +32,7 @@ function* add_Music(action) {
 function* deleteMusic(action) {
   const musicData = action.data;
   try {
-    yield axios.delete(`http://localhost:3200/musics/${musicData}`);
+    yield axios.delete(`https://music-data-stbm.onrender.com/music/${musicData}`);
   } catch (error) {
     console.log(error);
   }
@@ -41,7 +41,7 @@ function* deleteMusic(action) {
 function* updateMusic(action) {
   const musicData=action.data
   try {
-    yield axios.put(`http://localhost:3200/musics/${musicData.id}`,musicData).then((res) => {
+    yield axios.put(`https://music-data-stbm.onrender.com/music/${musicData.id}`,musicData).then((res) => {
       put({ type: SET_MUSIC_LIST, payload: res.data });
     });
   } catch (error) {
@@ -50,7 +50,7 @@ function* updateMusic(action) {
 }
 
 function *searchMusic(data){
-  let music=yield fetch(`http://localhost:3200/musics?q=${data.data}`)
+  let music=yield fetch(`https://music-data-stbm.onrender.com/music?q=${data.data}`)
   music= yield music.json()
   yield put({type:SET_MUSIC_LIST,data:music})
 }
